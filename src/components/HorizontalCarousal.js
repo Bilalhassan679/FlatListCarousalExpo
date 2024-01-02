@@ -92,7 +92,7 @@ const HorizontalCarousal = ({ data }) => {
               borderRadius: 5,
               height: "3%",
               backgroundColor: index === activeIndex ? "black" : "transparent",
-              // borderWidth: "0.4",
+              borderWidth: "0.4",
               borderColor: "black",
             }}
             onPress={() => handlePageChange(index)}
