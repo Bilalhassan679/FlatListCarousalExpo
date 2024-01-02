@@ -43,19 +43,19 @@ const data = [
 export const galleryData = [
   {
     id: 1,
-    imageUrl: require("./assets/img1.png"),
+    image: require("./assets/img1.png"),
   },
   {
     id: 2,
-    imageUrl: require("./assets/img1.png"),
+    image: require("./assets/img1.png"),
   },
   {
     id: 3,
-    imageUrl: require("./assets/img1.png"),
+    image: require("./assets/img1.png"),
   },
   {
     id: 4,
-    imageUrl: require("./assets/img1.png"),
+    image: require("./assets/img1.png"),
   },
 ];
 export default function App() {

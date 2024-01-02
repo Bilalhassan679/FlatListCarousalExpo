@@ -15,14 +15,12 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const HorizontalCarousal = ({ data }) => {
   const flatListRef = React.useRef(null);
-  const [slide, setSlide] = React.useState(1);
   const [prevDisabled, setPrevDisabled] = React.useState(false);
   const [nextDisabled, setNextDisabled] = React.useState(false);
 
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   const onPrevious = () => {
-    console.log(slide, "lsakdjflkajsdlfkjalsdkfjlaksdjflkj");
     if (activeIndex === 0) return;
     if (flatListRef.current) {
       flatListRef.current.scrollToIndex({
@@ -31,8 +29,6 @@ const HorizontalCarousal = ({ data }) => {
     }
   };
   const onNext = () => {
-    console.log(slide, "lsakdjflkajsdlfkjalsdkfjlaksdjflkj");
-
     if (activeIndex === data.length - 1) return;
     if (flatListRef.current) {
       flatListRef.current.scrollToIndex({
@@ -48,20 +44,21 @@ const HorizontalCarousal = ({ data }) => {
         // snapToAlignment="center"
         // decelerationRate={"fast"}
         pagingEnabled={true}
-        //
         horizontal
-        onMomentumScrollEnd={(event) => {
-          const pageIndex = Math.floor(
+        onScroll={(event) => {
+          const pageIndex = Math.round(
             event.nativeEvent.contentOffset.x / SCREEN_WIDTH
           );
+          console.log({ pageIndex });
           setActiveIndex(pageIndex);
         }}
         //can i set 0 -16 scrollEventThrottle={0}
+        scrollEventThrottle={0}
         showsHorizontalScrollIndicator={false}
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
-          // if (!item.image || !item.title) return <View style={{ width: 0 }} />;
+          if (!item.image) return <View style={{ width: 0 }} />;
           return (
             <View
               style={{
@@ -71,7 +68,7 @@ const HorizontalCarousal = ({ data }) => {
               }}
             >
               {/* <Image source={{ uri: item.image }} style={styles.image} /> */}
-              <Image source={item?.imageUrl} style={styles.image} />
+              <Image source={item?.image} style={styles.image} />
               <Text style={styles.imageText}>{item.title}</Text>
             </View>
           );
@@ -95,26 +92,26 @@ const HorizontalCarousal = ({ data }) => {
               borderRadius: 5,
               height: "3%",
               backgroundColor: index === activeIndex ? "black" : "transparent",
-              borderWidth: "0.4",
+              // borderWidth: "0.4",
               borderColor: "black",
             }}
             onPress={() => handlePageChange(index)}
           />
         ))}
 
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          {/* <Ionicons
-              style={styles.galleryicon}
-              color={Colors.primaryColor}
-              name={"image-outline"}
-              size={hp("3.5")}
-            /> */}
+          <Ionicons
+            style={styles.galleryicon}
+            color={Colors.primaryColor}
+            name={"image-outline"}
+            size={hp("3.5")}
+          />
           <Text
             style={{
               textAlign: "right",
@@ -124,7 +121,7 @@ const HorizontalCarousal = ({ data }) => {
           >
             {`${activeIndex + 1}/${data.length}`}
           </Text>
-        </View>
+        </View> */}
         <Text onPress={onNext} disabled={nextDisabled} style={styles.btnText}>
           ▶️
         </Text>
