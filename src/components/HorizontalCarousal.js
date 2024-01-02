@@ -48,6 +48,7 @@ const HorizontalCarousal = ({ data }) => {
         // snapToAlignment="center"
         // decelerationRate={"fast"}
         pagingEnabled={true}
+        //
         horizontal
         onMomentumScrollEnd={(event) => {
           const pageIndex = Math.floor(
